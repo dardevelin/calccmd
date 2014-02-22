@@ -36,26 +36,7 @@ int Calculator::exec()
 int Calculator::classicCalc()
 {
     // declarations
-    vector<signed char> opers;
     double ans = strtod(args[1], NULL);
-
-    // populate operation list
-    for (int i = 2; i < argc; i += 2)
-    {
-        signed char oper = 0;
-        if (!strcmp(args[i], "+")) oper = 1;
-        else if (!strcmp(args[i], "-")) oper = 2;
-        else if (!strcmp(args[i], "x")) oper = 3;
-        else if (!strcmp(args[i], "/")) oper = 4;
-        else if (!strcmp(args[i], "^")) oper = 5;
-
-        if (oper != 0) opers.push_back(oper);
-        else
-        {
-            printUsage(args);
-            return -3;
-        }
-    }
 
     for(int i=2;i<argc;i+=2)
     {
@@ -87,6 +68,111 @@ int Calculator::classicCalc()
 
 int Calculator::orderedCalc()
 {
+    // declarations
+    vector<double> nums;
+    vector<char*> opers;
+
+    // populate vectors
+    for (int i = 2; i < argc; i += 2)
+        nums.push_back(strtod(args[i],NULL));
+    for (int i = 3; i < argc; i += 2)
+        opers.push_back(args[i]);
+
+    // exponents
+    int pass = 1;
+    bool done = false;
+    while (!done)
+    {
+        cout << "Calculating Exponents - Pass " << pass++ << endl;
+        int changes = 0;
+        for (int i = 0; i < opers.size(); i++)
+        {
+            int pos1 = i, pos2 = i + 1;
+            if (!strcmp(opers.at(i), "^"))
+            {
+                nums.at(pos1) = pow(nums.at(pos1),nums.at(pos2));
+                nums.erase(nums.begin()+pos2);
+                opers.erase(opers.begin()+(i));
+                changes++;
+                break;
+            } 
+        }
+        if (changes > 1)
+        {
+            cout << "Not breaking operation loop properly. Loops: " << changes << endl;
+            return -4;
+        }
+        if (changes == 0) done = true;
+    } 
+
+    // multiply and divide
+    pass = 1;
+    done = false;
+    while (!done)
+    {
+        cout << "Multiplying and Dividing - Pass " << pass++ << endl;
+        int changes = 0;
+        for (int i = 0; i < opers.size(); i++)
+        {
+            int pos1 = i, pos2 = i + 1;
+            if (!strcmp(opers.at(i), "x"))
+            {
+                nums.at(pos1) *= nums.at(pos2);
+                nums.erase(nums.begin()+pos2);
+                opers.erase(opers.begin()+(i));
+                changes++;
+                break;
+            } else if (!strcmp(opers.at(i), "/"))
+            {
+                nums.at(pos1) /= nums.at(pos2);
+                nums.erase(nums.begin()+pos2);
+                opers.erase(opers.begin()+(i));
+                changes++;
+                break;
+            }
+        }
+        if (changes > 1)
+        {
+            cout << "Not breaking operation loop properly. Loops: " << changes << endl;
+            return -4;
+        }
+        if (changes == 0) done = true;
+   } 
+
+    pass = 1;
+    done = false;
+    while (!done)
+    {
+        cout << "Adding and Subtracting - Pass " << pass++ << endl;
+        int changes = 0;
+        for (int i = 0; i < opers.size(); i++)
+        {
+            int pos1 = i, pos2 = i + 1;
+            if (!strcmp(opers.at(i), "+"))
+            {
+                nums.at(pos1) += nums.at(pos2);
+                nums.erase(nums.begin()+pos2);
+                opers.erase(opers.begin()+(i));
+                changes++;
+                break;
+            } else if (!strcmp(opers.at(i), "-"))
+            {
+                nums.at(pos1) -= nums.at(pos2);
+                nums.erase(nums.begin()+pos2);
+                opers.erase(opers.begin()+(i));
+                changes++;
+                break;
+            }
+        }
+        if (changes > 1)
+        {
+            cout << "Not breaking operation loop properly. Loops: " << changes << endl;
+            return -4;
+        }
+        if (changes == 0) done = true;
+   }
+
+    cout << "The answer is: " << nums.at(0) << endl;
     return 0;
 }
 

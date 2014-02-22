@@ -8,12 +8,12 @@ class Calculator
         ~Calculator();
         static void printUsage(char**);
         int exec();
-        int classicCalc();
-        int orderedCalc();
     private:
         bool orderly;
         int argc;
         char** args;
+        int classicCalc();
+        int orderedCalc();
 };
 
 #endif
