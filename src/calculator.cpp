@@ -85,7 +85,7 @@ int Calculator::orderedCalc()
     {
         cout << "Calculating Exponents - Pass " << pass++ << endl;
         int changes = 0;
-        for (int i = 0; i < opers.size(); i++)
+        for (unsigned int i = 0; i < opers.size(); i++)
         {
             int pos1 = i, pos2 = i + 1;
             if (!strcmp(opers.at(i), "^"))
@@ -112,7 +112,7 @@ int Calculator::orderedCalc()
     {
         cout << "Multiplying and Dividing - Pass " << pass++ << endl;
         int changes = 0;
-        for (int i = 0; i < opers.size(); i++)
+        for (unsigned int i = 0; i < opers.size(); i++)
         {
             int pos1 = i, pos2 = i + 1;
             if (!strcmp(opers.at(i), "x"))
@@ -145,7 +145,7 @@ int Calculator::orderedCalc()
     {
         cout << "Adding and Subtracting - Pass " << pass++ << endl;
         int changes = 0;
-        for (int i = 0; i < opers.size(); i++)
+        for (unsigned int i = 0; i < opers.size(); i++)
         {
             int pos1 = i, pos2 = i + 1;
             if (!strcmp(opers.at(i), "+"))
