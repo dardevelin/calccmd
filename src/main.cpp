@@ -66,3 +66,4 @@ int main(int argc, char** argv)
     Calculator program(o,argc,argv);
     return program.exec();
 }
+
