@@ -22,11 +22,11 @@ bool checkArgs(bool option, int count, char** args)
     // check operations
     for (int i = (option ? 3 : 2); i < count; i+=2)
     {
-        if (!strcmp(args[i],"+") &&
-            !strcmp(args[i],"-") &&
-            !strcmp(args[i],"x") &&
-            !strcmp(args[i],"/") &&
-            !strcmp(args[i],"^"))
+        if (strcmp(args[i],"+") &&
+            strcmp(args[i],"-") &&
+            strcmp(args[i],"x") &&
+            strcmp(args[i],"/") &&
+            strcmp(args[i],"^"))
         {
             cout << "Argument " << i << " is invalid." << endl;
             return false;
