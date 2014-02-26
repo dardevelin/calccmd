@@ -34,4 +34,5 @@ $(ODIR)/%.o: $(SDIR)/%.c
 	mv *.o $(ODIR)
 
 clean:
-	rm -r obj/
+	rm -rf obj/
+	rm -f $(EXEC)
