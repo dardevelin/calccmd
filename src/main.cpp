@@ -1,13 +1,9 @@
 #include <iostream>
 #include <cstring>
 #include "calculator.h"
+#include "help.h"
 
 using namespace std;
-
-void printHelp()
-{
-    // todo: make help page
-}
 
 bool checkArgs(bool option, int count, char** args)
 {
@@ -53,7 +49,7 @@ int main(int argc, char** argv)
 
     if (strcmp(argv[1],"--help") == 0)
     {
-        printHelp();
+        Help::printHelp();
         return 0;
     }
 
