@@ -8,8 +8,9 @@ Root privileges (sudo)
 
 To install calcCMD:
 
-# make all
-# make clean
+$ make
+# make install
+$ make clean
 
 This will build the program, placing the executable in /bin
 The clean operation will remove the object files to free disk space.
