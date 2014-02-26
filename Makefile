@@ -1,4 +1,5 @@
 EXEC=calccmd
+DESTDIR=/usr/local/bin
 CC=gcc
 CXX=g++
 CFLAGS=-Wall
@@ -17,7 +18,7 @@ CXXOBJS=$(subst .cpp,.o,$(CXXTEMP))
 all: executable
 
 install: executable
-	mv $(EXEC) /usr/bin
+	mv $(EXEC) $(DESTDIR)
 
 executable: $(CXXOBJS) $(COBJS)
 	$(CXX) -o $(EXEC) $(CXXOBJS) $(COBJS)
