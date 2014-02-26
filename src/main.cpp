@@ -59,6 +59,7 @@ int main(int argc, char** argv)
 
     if (!checkArgs(extra,argc-1,argv))
     {
+        Calculator::printUsage(argv);
         return -2147483648;
     }
 
