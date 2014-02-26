@@ -1,0 +1,17 @@
+Installation instructions for the calcCMD command line calculator
+
+Requirements:
+GNU Make
+A bash shell
+The GNU Compiler Collection
+Root privileges (sudo)
+
+To install calcCMD:
+
+# make all
+# make clean
+
+This will build the program, placing the executable in /bin
+The clean operation will remove the object files to free disk space.
+
+You can now run the program with `$ calccmd`
