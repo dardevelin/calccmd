@@ -13,3 +13,6 @@
 *.a
 
 *.swp
+
+# Package Distributions
+PKGBUILD
