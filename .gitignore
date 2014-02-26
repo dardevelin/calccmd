@@ -12,6 +12,4 @@
 *.la
 *.a
 
-debug/
-release/
 *.swp
