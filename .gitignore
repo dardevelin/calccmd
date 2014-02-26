@@ -14,5 +14,4 @@
 
 *.swp
 
-# Package Distributions
-PKGBUILD
+pkg/
