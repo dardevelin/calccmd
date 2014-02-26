@@ -44,10 +44,10 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    bool o = false, extra = false;
-    if (strcmp(argv[1],"-o") == 0)
+    bool c = false, extra = false;
+    if (strcmp(argv[1],"-c") == 0)
     {
-        o = true;
+        c = true;
         extra = true;
     }
 
@@ -63,7 +63,7 @@ int main(int argc, char** argv)
     }
 
     // object-oriented after here
-    Calculator program(o,argc,argv);
+    Calculator program(c,argc,argv);
     return program.exec();
 }
 

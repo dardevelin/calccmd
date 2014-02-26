@@ -8,13 +8,13 @@
 
 using namespace std;
 
-bool orderly;
+bool classic;
 int argc;
 char** args;
 
 Calculator::Calculator(bool b, int c, char** a)
 {
-    orderly = b;
+    classic = b;
     argc = c;
     args = a;
 }
@@ -27,7 +27,7 @@ void Calculator::printUsage(char** argv)
 
 int Calculator::exec()
 {
-    if (!orderly) return classicCalc();
+    if (classic) return classicCalc();
     else return orderedCalc();
     // something derped
     return -2;
@@ -36,9 +36,9 @@ int Calculator::exec()
 int Calculator::classicCalc()
 {
     // declarations
-    double ans = strtod(args[1], NULL);
+    double ans = strtod(args[2], NULL);
 
-    for(int i=2;i<argc;i+=2)
+    for(int i=3;i<argc;i+=2)
     {
         if (!strcmp(args[i], "+"))
         {
@@ -73,9 +73,9 @@ int Calculator::orderedCalc()
     vector<char*> opers;
 
     // populate vectors
-    for (int i = 2; i < argc; i += 2)
+    for (int i = 1; i < argc; i += 2)
         nums.push_back(strtod(args[i],NULL));
-    for (int i = 3; i < argc; i += 2)
+    for (int i = 2; i < argc; i += 2)
         opers.push_back(args[i]);
 
     // exponents
