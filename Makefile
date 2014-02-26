@@ -16,7 +16,6 @@ install: objects
 	$(CXX) -o $(EXEC) $(ODIR)/*.o
 
 objects:
-	$(CC) $(CFLAGS) -c $(CSRCS)
 	$(CXX) $(CXXFLAGS) -c $(CXXSRCS)
 	mkdir -p $(ODIR)
 	mv *.o $(ODIR)
