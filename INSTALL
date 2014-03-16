@@ -1,12 +1,14 @@
 Installation instructions for the calcCMD command line calculator
 
+calcCMD is available to Arch users on the Arch User Repository
+
 Requirements:
 GNU Make
 A bash shell
 The GNU Compiler Collection
 Root privileges (sudo)
 
-To install calcCMD:
+To install calcCMD from source:
 
 $ make
 # make install
