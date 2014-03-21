@@ -13,8 +13,9 @@ calcCMD is its ability to use the order of operations effectively. Running
 `calccmd -c` will activate classic mode, which does all math operations in the
 order they were entered.
 
-Orderly calculations are verbose at this time, meaning they will fill the 
-console with messages every time it makes a pass through the arguments.
+Calculations can be made more verbose with the `v` option. This can be done in
+classic mode with `calccmd -cv`, since (as of version 0.3) options are contained
+in a class with attributes.
 
 calcCMD is free software, released under the GNU General Public License, meaning
 you have the freedom to do as you wish with the software, including modifying,
