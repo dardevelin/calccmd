@@ -1,5 +1,5 @@
 #include <iostream>
-#include "help.h"
+#include "help.hxx"
 
 using namespace std;
 
