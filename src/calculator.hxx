@@ -1,6 +1,10 @@
 #ifndef CALCULATOR_H
 #define CALCULATOR_H
 
+#include <vector>
+
+class Option;
+
 class Calculator
 {
     public:
@@ -9,9 +13,12 @@ class Calculator
         static void printUsage(char**);
         int exec();
     private:
-        bool orderly;
+        std::vector<Option*> options;
         int argc;
         char** args;
+        bool checkArgs();
+        void setDefaultOptions();
+        void cleanUp();
         int classicCalc();
         int orderedCalc();
 };
