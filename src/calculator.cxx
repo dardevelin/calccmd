@@ -32,6 +32,7 @@ void Calculator::setDefaultOptions()
 {
     options.push_back(new Option("classic"));
     options.push_back(new Option("verbose"));
+    options.push_back(new Option("quiet"));
 }
 
 void Calculator::cleanUp()
@@ -85,7 +86,8 @@ int Calculator::classicCalc()
         }
     }
 
-    cout << "The answer is: " << ans << endl;
+    if (!options.at(2)->isActive()) cout << "The answer is: ";
+    cout << ans << endl;
     return 0;
 }
 
@@ -203,7 +205,8 @@ int Calculator::orderedCalc()
         if (changes == 0) done = true;
    }
 
-    cout << "The answer is: " << nums.at(0) << endl;
+    if (!options.at(2)->isActive()) cout << "The answer is: ";
+    cout << nums.at(0) << endl;
     return 0;
 }
 
