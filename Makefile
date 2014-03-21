@@ -1,4 +1,4 @@
-EXEC=calccmd
+EXEC=countdowncmd
 PREFIX=/usr/local
 CC=gcc
 CXX=g++
@@ -7,23 +7,26 @@ CXXFLAGS=-Wall
 
 SDIR=src
 ODIR=obj
+XDIR=bin
 
-CSRCS=$(shell ls $(SDIR)/*.c)
-CXXSRCS=$(shell ls $(SDIR)/*.cpp)
+CSRCS=$(shell if [ -e $(SDIR)/*.c ]; then ls $(SDIR)/*.c; fi;)
+CXXSRCS=$(shell ls $(SDIR)/*.cxx)
 CTEMP=$(subst $(SDIR),$(ODIR),$(CSRCS))
 COBJS=$(subst .c,.o,$(CTEMP))
 CXXTEMP=$(subst $(SDIR),$(ODIR),$(CXXSRCS))
-CXXOBJS=$(subst .cpp,.o,$(CXXTEMP))
+CXXOBJS=$(subst .cxx,.o,$(CXXTEMP))
+XPATH=$(XDIR)/$(EXEC)
 
 all: executable
 
 install: all
-	install -D -m755 $(EXEC) $(DESTDIR)$(PREFIX)/bin/$(EXEC)
+	install -D -m755 $(XPATH) $(DESTDIR)$(PREFIX)/bin/$(EXEC)
 
 executable: $(CXXOBJS) $(COBJS)
-	$(CXX) -o $(EXEC) $(CXXOBJS) $(COBJS)
+	mkdir -p $(XDIR)
+	$(CXX) -o $(XPATH) $(CXXOBJS) $(COBJS)
 
-$(ODIR)/%.o: $(SDIR)/%.cpp
+$(ODIR)/%.o: $(SDIR)/%.cxx
 	$(CXX) $(CXXFLAGS) -c $<
 	mkdir -p $(ODIR)
 	mv *.o $(ODIR)
@@ -34,5 +37,5 @@ $(ODIR)/%.o: $(SDIR)/%.c
 	mv *.o $(ODIR)
 
 clean:
-	rm -rf obj/
-	rm -f $(EXEC)
+	rm -rf $(ODIR)
+	rm -rf $(XDIR)
