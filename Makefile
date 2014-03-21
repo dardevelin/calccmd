@@ -1,4 +1,4 @@
-EXEC=countdowncmd
+EXEC=calccmd
 PREFIX=/usr/local
 CC=gcc
 CXX=g++
