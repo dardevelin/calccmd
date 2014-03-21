@@ -1,5 +1,0 @@
-TODO for calcCMD version 1.0.0
-
-1. Implement basic calculation (DONE)
-2. Implement order of operations calculation (DONE)
-3. Make help page for `--help` in main.cpp
