@@ -33,15 +33,8 @@ void Calculator::setDefaultOptions()
     options.push_back(new Option("classic"));
     options.push_back(new Option("verbose"));
     options.push_back(new Option("quiet"));
-}
-
-void Calculator::cleanUp()
-{
-    for (unsigned int i = 0; i < options.size(); i++)
-    {
-        delete options.at(i);
-        options.at(i) = NULL;
-    }
+    options.push_back(new Option("postfix"));
+    options.push_back(new Option("factorial"));
 }
 
 int Calculator::exec()
@@ -50,7 +43,9 @@ int Calculator::exec()
 
     int code = 0;
     if (options.at(0)->isActive()) code = classicCalc();
-    else  code = orderedCalc();
+    else if (options.at(3)->isActive()) code = postfixCalc();
+    else if (options.at(4)->isActive()) code = calcFactorial();
+    else code = orderedCalc();
     return code;
 }
 
@@ -88,6 +83,30 @@ int Calculator::classicCalc()
 
     if (!options.at(2)->isActive()) cout << "The answer is: ";
     cout << ans << endl;
+    return 0;
+}
+
+int Calculator::postfixCalc()
+{
+    return 0;
+}
+
+int Calculator::calcFactorial()
+{
+    int num = (int)strtod(args[2],NULL);
+    int newNum = num;
+
+    if (options.at(1)->isActive())
+        cout << "Calculating factorial of " << num << endl;
+
+    while (newNum > 1)
+    {
+        num *= --newNum;
+    }
+
+    if (options.at(2)->isActive())
+        cout << "The answer is: ";
+    cout << num << endl;
     return 0;
 }
 
@@ -212,15 +231,6 @@ int Calculator::orderedCalc()
 
 bool Calculator::checkArgs()
 {
-    // check number of arguments
-    if ((option ? argc-1 : argc)%2 != 0 ||
-        (option ? argc-2 : argc-1) == 0)
-    {
-        cout << "Invalid argument count.\n\n" << endl;
-        printUsage(args);
-        return false;
-    }
-
     // parse options
     if (option)
     {
@@ -262,17 +272,37 @@ bool Calculator::checkArgs()
         }
     }
 
-    // check operations
-    for (int i = (option ? 3 : 2); i < argc; i+=2)
+    // check number of arguments
+    if (options.at(4)->isActive() &&
+        argc > 3)
     {
-        if (strcmp(args[i],"+") != 0 &&
-            strcmp(args[i],"-") != 0 &&
-            strcmp(args[i],"x") != 0 &&
-            strcmp(args[i],"/") != 0 &&
-            strcmp(args[i],"^") != 0 )
+        cout << "Invalid argument count.\n\n" << endl;
+        printUsage(args);
+        return false;
+    }
+    else if ((option ? argc-1 : argc)%2 != 0 ||
+                (option ? argc-2 : argc-1) == 0)
+    {
+        cout << "Invalid argument count.\n\n" << endl;
+        printUsage(args);
+        return false;
+    }
+
+    // check operations
+    if (!options.at(3)->isActive() &&
+        !options.at(4)->isActive())
+    {
+        for (int i = (option ? 3 : 2); i < argc; i+=2)
         {
-            cout << "Argument " << i << " is invalid." << endl;
-            return false;
+            if (strcmp(args[i],"+") != 0 &&
+                strcmp(args[i],"-") != 0 &&
+                strcmp(args[i],"x") != 0 &&
+                strcmp(args[i],"/") != 0 &&
+                strcmp(args[i],"^") != 0 )
+            {
+                cout << "Argument " << i << " is invalid." << endl;
+                return false;
+            }
         }
     }
     return true;
@@ -280,5 +310,9 @@ bool Calculator::checkArgs()
 
 Calculator::~Calculator()
 {
-    cleanUp();
+    for (unsigned int i = 0; i < options.size(); i++)
+    {
+        delete options.at(i);
+        options.at(i) = NULL;
+    }
 }

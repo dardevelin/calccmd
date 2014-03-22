@@ -20,6 +20,8 @@ class Calculator
         void setDefaultOptions();
         void cleanUp();
         int classicCalc();
+        int postfixCalc();
+        int calcFactorial();
         int orderedCalc();
 };
 
