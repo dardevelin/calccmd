@@ -104,7 +104,7 @@ int Calculator::calcFactorial()
         num *= --newNum;
     }
 
-    if (options.at(2)->isActive())
+    if (!options.at(2)->isActive())
         cout << "The answer is: ";
     cout << num << endl;
     return 0;
