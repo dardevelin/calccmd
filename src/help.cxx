@@ -26,4 +26,5 @@ void Help::printHelp()
     cout << "-v, --verbose - Tells more about the parsing methods used" << endl;
     cout << "-q, --quiet - Prints only the answer on the screen" << endl;
     cout << "-p, --postfix - Parses the arguments as Reverse Polish Notation" << endl;
+    cout << "-f, --factorial - Gets the factorial of the first number" << endl;
 }
