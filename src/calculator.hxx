@@ -16,6 +16,7 @@ class Calculator
         std::vector<Option*> options;
         int argc;
         char** args;
+        bool isOper(char*);
         bool checkArgs();
         void setDefaultOptions();
         void cleanUp();

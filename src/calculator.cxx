@@ -88,6 +88,14 @@ int Calculator::classicCalc()
 
 int Calculator::postfixCalc()
 {
+    int operIndex;
+    vector<double> nums;
+    vector<char*> opers;
+
+    for (int i = option ? 2 : 1; i < argc; i++)
+    {
+        if (true) {}
+    }
     return 0;
 }
 
@@ -229,6 +237,15 @@ int Calculator::orderedCalc()
     return 0;
 }
 
+bool Calculator::isOper(char* arg)
+{
+    return (strcmp(arg,"+") == 0 ||
+            strcmp(arg,"-") == 0 ||
+            strcmp(arg,"x") == 0 ||
+            strcmp(arg,"/") == 0 ||
+            strcmp(arg,"^") == 0 );
+}
+
 bool Calculator::checkArgs()
 {
     // parse options
@@ -276,14 +293,14 @@ bool Calculator::checkArgs()
     if (options.at(4)->isActive() &&
         argc > 3)
     {
-        cout << "Invalid argument count.\n\n" << endl;
+        cout << "Invalid argument count.\n" << endl;
         printUsage(args);
         return false;
     }
     else if ((option ? argc-1 : argc)%2 != 0 ||
                 (option ? argc-2 : argc-1) == 0)
     {
-        cout << "Invalid argument count.\n\n" << endl;
+        cout << "Invalid argument count.\n" << endl;
         printUsage(args);
         return false;
     }
@@ -294,16 +311,24 @@ bool Calculator::checkArgs()
     {
         for (int i = (option ? 3 : 2); i < argc; i+=2)
         {
-            if (strcmp(args[i],"+") != 0 &&
-                strcmp(args[i],"-") != 0 &&
-                strcmp(args[i],"x") != 0 &&
-                strcmp(args[i],"/") != 0 &&
-                strcmp(args[i],"^") != 0 )
+            if (!isOper(args[i]))
             {
                 cout << "Argument " << i << " is invalid." << endl;
                 return false;
             }
         }
+    }
+
+    if ((options.at(0)->isActive() &&
+        options.at(3)->isActive()) ||
+        (options.at(0)->isActive() &&
+        options.at(4)->isActive()) ||
+        (options.at(3)->isActive() &&
+        options.at(4)->isActive()))
+    {
+        cout << "Mode panic! Don't try to activate more than one mode!\n" << endl;
+        printUsage(args);
+        return false;
     }
     return true;
 }
