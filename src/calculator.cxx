@@ -61,22 +61,32 @@ int Calculator::classicCalc()
     {
         if (!strcmp(args[i], "+"))
         {
+            if (options.at(1)->isActive())
+                cout << "Adding " << args[i+1] << " to " << ans << endl;
             ans += strtod(args[i+1],NULL);
         }
         else if (!strcmp(args[i], "-"))
         {
+            if (options.at(1)->isActive())
+                cout << "Subtracting " << args[i+1] << " from " << ans << endl;
             ans -= strtod(args[i+1],NULL);
         }
         else if (!strcmp(args[i], "x"))
         {
+            if (options.at(1)->isActive())
+                cout << "Multiplying " << args[i+1] << " by " << ans << endl;
             ans *= strtod(args[i+1],NULL);
         }
         else if (!strcmp(args[i], "/"))
         {
+            if (options.at(1)->isActive())
+                cout << "Dividing " << args[i+1] << " by " << ans << endl;
             ans /= strtod(args[i+1],NULL);
         }
         else if (!strcmp(args[i], "^"))
         {
+            if (options.at(1)->isActive())
+                cout << "Raising " << ans << " to the power of" << args[i+1] << endl;
             ans = pow(ans,strtod(args[i+1],NULL));
         }
     }
@@ -223,6 +233,8 @@ int Calculator::calcFactorial()
 
     while (newNum > 1)
     {
+        if (options.at(1)->isActive())
+            cout << "Multiplying " << num << " by " << newNum-1 << endl;
         num *= --newNum;
     }
 
