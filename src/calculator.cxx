@@ -94,8 +94,122 @@ int Calculator::postfixCalc()
 
     for (int i = option ? 2 : 1; i < argc; i++)
     {
-        if (true) {}
+        if (!isOper(args[i]))
+        {
+            nums.push_back(strtod(args[i],NULL));
+            if (options.at(1)->isActive())
+                cout << "Added " << args[i] << " to num list" << endl;
+        }
+        else
+        {
+            operIndex = i;
+            break;
+        }
     }
+    for (int i = operIndex; i < argc; i++)
+    {
+        if (isOper(args[i]))
+        {
+            opers.push_back(args[i]);
+            if (options.at(1)->isActive())
+                cout << "Added " << args[i] << " to opers list" << endl;
+        }
+        else
+        {
+            cout << "Invalid operation at argument " << i << "\n" << endl;
+            printUsage(args);
+            return -1;
+        }
+    }
+
+    if (opers.size() >= nums.size() ||
+        opers.size() < nums.size()-1)
+    {
+        cout << "Invalid number of operations\n" << endl;
+        printUsage(args);
+        return -1;
+    }
+
+    int pass = 1;
+    bool done = false;
+    while (!done)
+    {
+        if (options.at(1)->isActive())
+            cout << "Calculating with RPN/Postfix - Pass " << pass << endl;
+
+        if (!strcmp(opers.at(0),"+"))
+        {
+            if (options.at(1)->isActive())
+                cout << "Adding " << nums.at(nums.size()-2)
+                    << " to " << nums.at(nums.size()-1) << endl;
+            nums.at(nums.size()-2) += nums.at(nums.size()-1);
+            if (options.at(1)->isActive())
+                cout << "Erasing last num (no longer needed)" << endl;
+            nums.erase(nums.end()-1);
+            if (options.at(1)->isActive())
+                cout << "Erasing first oper (no longer needed)" << endl;
+            opers.erase(opers.begin());
+        }
+        else if (!strcmp(opers.at(0),"-"))
+        {
+            if (options.at(1)->isActive())
+                cout << "Subtracting " << nums.at(nums.size()-2)
+                    << " from " << nums.at(nums.size()-1) << endl;
+            nums.at(nums.size()-2) -= nums.at(nums.size()-1);
+            if (options.at(1)->isActive())
+                cout << "Erasing last num (no longer needed)" << endl;
+            nums.erase(nums.end()-1);
+            if (options.at(1)->isActive())
+                cout << "Erasing first oper (no longer needed)" << endl;
+            opers.erase(opers.begin());
+        }
+        else if (!strcmp(opers.at(0),"x"))
+        {
+            if (options.at(1)->isActive())
+                cout << "Multiplying " << nums.at(nums.size()-2)
+                    << " by " << nums.at(nums.size()-1) << endl;
+            nums.at(nums.size()-2) *= nums.at(nums.size()-1);
+            if (options.at(1)->isActive())
+                cout << "Erasing last num (no longer needed)" << endl;
+            nums.erase(nums.end()-1);
+            if (options.at(1)->isActive())
+                cout << "Erasing first oper (no longer needed)" << endl;
+            opers.erase(opers.begin());
+        }
+        else if (!strcmp(opers.at(0),"/"))
+        {
+            if (options.at(1)->isActive())
+                cout << "Dividing " << nums.at(nums.size()-2)
+                    << " by " << nums.at(nums.size()-1) << endl;
+            nums.at(nums.size()-2) /= nums.at(nums.size()-1);
+            if (options.at(1)->isActive())
+                cout << "Erasing last num (no longer needed)" << endl;
+            nums.erase(nums.end()-1);
+            if (options.at(1)->isActive())
+                cout << "Erasing first oper (no longer needed)" << endl;
+            opers.erase(opers.begin());
+        }
+        else if (!strcmp(opers.at(0),"^"))
+        {
+            if (options.at(1)->isActive())
+                cout << "Raising " << nums.at(nums.size()-2)
+                    << " to the power of " << nums.at(nums.size()-1) << endl;
+            nums.at(nums.size()-2) = pow(nums.at(nums.size()-2),
+                                            nums.at(nums.size()-1));
+            if (options.at(1)->isActive())
+                cout << "Erasing last num (no longer needed)" << endl;
+            nums.erase(nums.end()-1);
+            if (options.at(1)->isActive())
+                cout << "Erasing first oper (no longer needed)" << endl;
+            opers.erase(opers.begin());
+        }
+
+        if (opers.size() == 0) done = true;
+    }
+
+    if (!options.at(2)->isActive())
+        cout << "The answer is: ";
+    cout << nums.at(0) << endl;
     return 0;
 }
 
