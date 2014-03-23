@@ -7,11 +7,13 @@ calcCMD is designed to be an easy-to-use, Keep-It-Simple calculator for a line
 interface. It enables the user to quickly make calculations without having to
 deal with a GUI that might be tedious to work with.
 
-calcCMD currently has two modes: classic and orderly. Just running `calccmd`
-defaults to orderly mode, since the key advantage of using a program like
-calcCMD is its ability to use the order of operations effectively. Running
-`calccmd -c` will activate classic mode, which does all math operations in the
-order they were entered.
+calcCMD currently has four modes: classic, postfix, factorial, and orderly. Just
+running `calccmd` defaults to orderly mode, since the key advantage of using a
+program like calcCMD is its ability to use the order of operations effectively.
+Running `calccmd -c` will activate classic mode, which does all math operations
+in the order they were entered. `calccmd -p` will parse the arguments following
+as reverse Polish notation (or postfix). `calccmd -f` will take one additional
+argument and get its factorial.
 
 Calculations can be made more verbose with the `v` option. This can be done in
 classic mode with `calccmd -cv`, since (as of version 0.3) options are contained
